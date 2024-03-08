@@ -3,12 +3,17 @@ Django settings for django_get_started project.
 """
 
 from os import path
+from pathlib import Path
+import os
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 PROJECT_ROOT = path.dirname(path.abspath(path.dirname(__file__)))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = {'*'}
+ALLOWED_HOSTS = ['*']
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -72,14 +77,15 @@ STATIC_ROOT = path.join(PROJECT_ROOT, 'static').replace('\\', '/')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+STATIC_URL = 'app/static/'
 
 # Additional locations of static files
-STATICFILES_DIRS = (
+STATICFILES_DIRS = [
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-)
+#os.path.join("app/static")
+]
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -114,12 +120,13 @@ ROOT_URLCONF = 'django_get_started.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'django_get_started.wsgi.application'
 
-TEMPLATE_DIRS = (
+#TEMPLATE_DIRS = [
     # Put strings here, like "/home/html/django_templates" or
     # "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-)
+    
+#]
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -166,3 +173,20 @@ LOGGING = {
 
 # Specify the default test runner.
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
